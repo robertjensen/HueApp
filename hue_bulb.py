@@ -15,6 +15,12 @@ class HueBulb(threading.Thread):
         """ Returns true if the bulb is avaiable on the network """
         return self.state['state']['reachable']
 
+    def max_brightness(self):
+        """ Set bulb to maximal brightness """
+        if self.reachable():
+            self.bulb.state(bri=255)
+        return self.reachable()
+
     def turn_on_off(self, on_off_state):
         """ Turns the bulb on or off """
         if self.reachable():

@@ -22,7 +22,6 @@ class HueControl(threading.Thread):
             print(key)
             bulb = lights[key]
             self.bulbs[key] = hue_bulb.HueBulb(bulb)
-        #vindue.state(bri=255)
 
     def turn_on_alarm_mode(self):
         """ Keep an eye on movement and turn on all lights """
@@ -35,6 +34,8 @@ class HueControl(threading.Thread):
         If notify is true, a message will be send"""
         for bulb in self.bulbs:
             self.bulbs[bulb].turn_on_off(turn_on)
+            if turn_on:
+                self.bulbs[bulb].max_brightness()
         if notify:
             pass
         
@@ -53,6 +54,6 @@ if __name__ == '__main__':
     HUE = HueControl()
     HUE.start()
     HUE.turn_all_on_off(False)
-    time.sleep(5)
+    time.sleep(2)
     HUE.turn_on_alarm_mode()
     
